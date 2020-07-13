@@ -13,7 +13,7 @@ This workshop has two parts :
 * Click on the AWS Console button
 It should bring up a pop-up screen. On the pop-up, under Login Link click on Open Console
 * You should be logged into the AWS provided account
-* Please verify that the region selected is us-west-1 (Ireland). 
+* Please verify that the region selected is eu-west-1 (Ireland). 
 
 ## Prerequisites:
 This step will help you copy 3 AWS CloudFormation Templates that are required for both parts of the workshop. 

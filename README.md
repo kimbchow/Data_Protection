@@ -116,17 +116,15 @@ Assume the role named AppDevRole by using switch role on the AWS console in the 
 This role has permissions that a Application developer will need for building an web aplication which is fronted by an application load balancer and behind the load balancer is a lambda origin that provides the HTML code for a website. The application developer will also have permissions to issue a certificate under a certificate authority that they select.
 
 7. Next step is to issue a private certificate to put on the application load balancer.
-Open this link in a new browser tab for steps : https://view.highspot.com/viewer/5d5b133d6a3b116f29313a10
+* Open this link in a new browser tab for steps : https://view.highspot.com/viewer/5d5b133d6a3b116f29313a10
 
 9. Attach a HTTPS listener and private certificate to the ALB .
-Open this link in a new browser tab for steps : https://view.highspot.com/viewer/5d669c21628ba22ca196b49e
+* Open this link in a new browser tab for steps : https://view.highspot.com/viewer/5d669c21628ba22ca196b49e
 
 10. Validate the identity of the ALB with the browser that your are using. Please open link in a new browser tab
-For firefox : https://view.highspot.com/viewer/5d5c1fe23f65f635ae005a47
-
-For google chrome : https://view.highspot.com/viewer/5d5c42da66bbaa2fc928a575
-
-For Microsoft Edge : https://view.highspot.com/viewer/5d5c2e5cf7794d4833e8207a
+* For firefox : https://view.highspot.com/viewer/5d5c1fe23f65f635ae005a47
+* For google chrome : https://view.highspot.com/viewer/5d5c42da66bbaa2fc928a575
+* For Microsoft Edge : https://view.highspot.com/viewer/5d5c2e5cf7794d4833e8207a
 
 12. Cleanup
-Don't worry about cleanup, we will take care of it. Hopefully you learnt something useful in this workshop that you can take back your organization. Thank you for coming.
+* Don't worry about cleanup, we will take care of it. Hopefully you learnt something useful in this workshop that you can take back your organization. Thank you for coming.

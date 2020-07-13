@@ -47,7 +47,7 @@ This step will help you copy 3 AWS CloudFormation Templates that are required fo
 * Click on Chrome > **Save Page As** > leave the default template name > Save within the folder **workshop_templates** created in the previous step.
 
 * On Windows: 
-* Click on https://raw.githubusercontent.com/aws-samples/data-protection/master/usecase-8/cf-templates/template-ca-admin.yaml
+* Click on https://raw.githubusercontent.com/aws-samples/data-protection/master/usecase-8/cf-templates/template-app-dev.yaml
 * Right Click > **Save As** > leave the default template name > Save within the folder **workshop_templates** created in the previous step. 
 
 **You should now have 3 AWS CloudFormation Templates within your workshop_templates folder 

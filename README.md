@@ -26,7 +26,6 @@ This step will help you copy 3 AWS CloudFormation Templates that are required fo
 * Click on Chrome > **Save Page As** > leave the default template name > Save within the folder **workshop_templates** created in the previous step. 
 <img width="424" alt="Screen Shot 2020-07-13 at 11 48 10 AM" src="https://user-images.githubusercontent.com/50940575/87269157-ed49de80-c4fe-11ea-8afe-5b12d7da3da6.png">
 
-
 * On Windows: 
 * Click on https://raw.githubusercontent.com/aws-samples/data-protection/master/usecase-8/cf-templates/template-base.yaml 
 * Right Click > **Save As** > leave the default template name > Save within the folder **workshop_templates** created in the previous step. 
@@ -52,30 +51,8 @@ This step will help you copy 3 AWS CloudFormation Templates that are required fo
 
 **You should now have 3 AWS CloudFormation Templates within your workshop_templates folder 
 
-## Part 1 : Using KMS for encrypting data on AWS services
-As a first step, please download https://raw.githubusercontent.com/aws-samples/data-protection/master/usecase-8/files/to_upload.txt to your laptop by right clicking the below link and save link as the filename to_upload.txt to any folder on your laptop in the **workshop_templates** folder. 
-
-This workshops will cover two scenarios :
-
-**AWS Managed Keys** :
-Server side encryption on S3 using AWS Managed Keys
-
-For instructions, right click and open this link in a new browser tab : https://view.highspot.com/viewer/5d9e69b634d6be6992300ade
-
-**Customer Managed Keys(CMK)** :
-Server side encryption on S3 using Customer Managed Keys with separation of duties between key administrators and key users.
-
-For instructions, right click and open this link in a new browser tab : https://view.highspot.com/viewer/5d9e6e10f7794d2efc187cbe
-
-## Part 2 : Create a complete CA hierarchy using ACM Private CA and deploying private certificates
-
-1. Assume an IAM Role called **CaAdminRole** 
-Assume the role named CaAdminRole by using switch role on the AWS console in the AWS account that you are currently logged into. The role name is case sensitive
-
-This role has permissions that a Certificate Authority administrator will need for CA administration. As a CA administrator you will be responsible for creating a root and subordinate certificate authority hierarchy
-
-
-2. Build the infrastructure needed for creating a CA hierarchy by deploying the cloudformation template below for **templates-ca-admin**
+**Deploying the Cloudformation Templates**
+* Build the infrastructure needed for these labs by deploying all 3 CloudFormation Templates. 
 * Navigate to the CloudFormation console
 * Click Create Stack. Click Next. 
 
@@ -99,6 +76,28 @@ This role has permissions that a Certificate Authority administrator will need f
 
 <img width="644" alt="Screen Shot 2020-07-13 at 12 13 51 PM" src="https://user-images.githubusercontent.com/50940575/87270639-503d7480-c503-11ea-8e0c-1b582ca0a146.png">
 
+
+## Part 1 : Using KMS for encrypting data on AWS services
+As a first step, please download https://raw.githubusercontent.com/aws-samples/data-protection/master/usecase-8/files/to_upload.txt to your laptop by right clicking the below link and save link as the filename to_upload.txt to any folder on your laptop in the **workshop_templates** folder. 
+
+This workshops will cover two scenarios :
+
+**AWS Managed Keys** :
+Server side encryption on S3 using AWS Managed Keys
+
+For instructions, right click and open this link in a new browser tab : https://view.highspot.com/viewer/5d9e69b634d6be6992300ade
+
+**Customer Managed Keys(CMK)** :
+Server side encryption on S3 using Customer Managed Keys with separation of duties between key administrators and key users.
+
+For instructions, right click and open this link in a new browser tab : https://view.highspot.com/viewer/5d9e6e10f7794d2efc187cbe
+
+## Part 2 : Create a complete CA hierarchy using ACM Private CA and deploying private certificates
+
+1. Assume an IAM Role called **CaAdminRole** 
+Assume the role named CaAdminRole by using switch role on the AWS console in the AWS account that you are currently logged into. The role name is case sensitive
+
+This role has permissions that a Certificate Authority administrator will need for CA administration. As a CA administrator you will be responsible for creating a root and subordinate certificate authority hierarchy
 
 3. Create a Root CA.
 * Navigate to ACM Service in the AWS Console

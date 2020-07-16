@@ -224,20 +224,91 @@ Step 9: Success! You should see that the root CA is now active.
 
 * Navigate to ACM Service in the AWS Console
 * Under Private CA's click on the Create CA button
-* Open this link in a new browser tab for the rest of the steps : https://view.highspot.com/viewer/5d9e91c1a2e3a9148b6d7deb 
 
-6. Assume an IAM Role called **AppDevRole** 
-Assume the role named AppDevRole by using switch role on the AWS console in the AWS account that you are currently logged into.
+Step 1: Create a subordinate issuing CA
 
-This role has permissions that a Application developer will need for building an web aplication which is fronted by an application load balancer and behind the load balancer is a lambda origin that provides the HTML code for a website. The application developer will also have permissions to issue a certificate under a certificate authority that they select.
+![Screen Shot 2020-07-16 at 12 43 35 PM](https://user-images.githubusercontent.com/50940575/87627752-fdadc380-c761-11ea-9a41-5cce0a085004.png)
 
-7. Next step is to issue a private certificate to put on the application load balancer.
-* Open this link in a new browser tab for steps : https://view.highspot.com/viewer/5d5b133d6a3b116f29313a10
+Step 2: Configure the CA with these parameters
+![Screen Shot 2020-07-16 at 12 44 30 PM](https://user-images.githubusercontent.com/50940575/87627796-1ae29200-c762-11ea-9bed-67c308313a01.png)
 
-9. Attach a HTTPS listener and private certificate to the ALB .
-* Open this link in a new browser tab for steps : https://view.highspot.com/viewer/5d669c21628ba22ca196b49e
+Step 3: Choose the CA key Algorithm 
+![Screen Shot 2020-07-16 at 12 45 12 PM](https://user-images.githubusercontent.com/50940575/87627829-364d9d00-c762-11ea-9d65-5c4a08ef0bd3.png)
 
-10. Validate the identity of the ALB with the browser that your are using. Please open link in a new browser tab
+Step 4: Enable the CRL distribution
+![Screen Shot 2020-07-16 at 12 46 07 PM](https://user-images.githubusercontent.com/50940575/87627882-567d5c00-c762-11ea-9284-7557c1079a60.png)
+
+Step 5: Add tags
+![Screen Shot 2020-07-16 at 12 46 49 PM](https://user-images.githubusercontent.com/50940575/87627928-6c8b1c80-c762-11ea-8efa-a42378132ce1.png)
+
+Step 6: Authorise this subordinate CA to manage renewals, click next and confirm and create the CA. 
+![Screen Shot 2020-07-16 at 12 47 15 PM](https://user-images.githubusercontent.com/50940575/87627975-86c4fa80-c762-11ea-8f4e-e7ec8089fa17.png)
+
+Step 7: Click "Get Started" to activate the subordinate CA cert.
+![Screen Shot 2020-07-16 at 12 48 41 PM](https://user-images.githubusercontent.com/50940575/87628066-ae1bc780-c762-11ea-816b-e61a835cde9f.png)
+
+Step 8: Install the subordinate CA cert, and sign it with the root CA that was created earlier. Please note that for signing the subordinate CA CSR, there are two options : You can either use an ACM Private CA that's created with ACM Private CA OR you can use an intermediate or root private CA that already exists within your organization. 
+![Screen Shot 2020-07-16 at 12 49 39 PM](https://user-images.githubusercontent.com/50940575/87628115-d5729480-c762-11ea-8a94-ad0ac9e18f43.png)
+
+Step 9: Select a parent Private CA - root CA. Please note that you set the path length as Zero. Path length (pathlen) is a CA certificate basic constraint that defines the maximum CA depth of the CA hierarchy existing under a CA. For example, a CA with a path length constraint of zero cannot have any subordinate CAs. A CA with a path length constraint of one may have up to one level of subordinate CAs underneath it. Setting the path length to zero has the added security benefit of:
+* Preventing creation of any more subordinate CAs that are not authorised
+
+![Screen Shot 2020-07-16 at 12 52 26 PM](https://user-images.githubusercontent.com/50940575/87628319-3ac68580-c763-11ea-80ef-3e5d70ed4d9f.png)
+
+Step 10: Review and Generate the subordinate CA certificate
+![Screen Shot 2020-07-16 at 12 54 47 PM](https://user-images.githubusercontent.com/50940575/87628460-97c23b80-c763-11ea-9dd2-24d63c7a4f4a.png)
+
+Step 11: Success! You should see that the subordinate CA with common name acmsubordinatecag1 is now set to Active. 
+
+## Issuing the private certificate created on the Application Load Balancer 
+
+Step 1: Assume an IAM Role called **AppDevRole** following the steps above to assume a new role. This role has permissions that a Application developer will need for building an web aplication which is fronted by an application load balancer and behind the load balancer is a lambda origin that provides the HTML code for a website. The application developer will also have permissions to issue a certificate under a certificate authority that they select.
+
+Step 2: Navigate to the EC2 Console, and scroll down until you see "Load Balancers" on the left side menu. You should see a Load Balancer has already been deployed. Copy out the DNS name of the ALB that is deployed. Save this somewhere as you will use this in later steps. 
+![Screen Shot 2020-07-16 at 12 59 15 PM](https://user-images.githubusercontent.com/50940575/87628739-30f15200-c764-11ea-85a9-8e4ef4c57b18.png)
+
+Step 3: Issue a Private Certificate from ACM by navigating back to ACM. 
+![Screen Shot 2020-07-16 at 1 00 12 PM](https://user-images.githubusercontent.com/50940575/87628799-4f574d80-c764-11ea-96ec-c8c964e5f9f9.png)
+
+Step 4: Click on Request a private certificate
+![Screen Shot 2020-07-16 at 1 01 07 PM](https://user-images.githubusercontent.com/50940575/87628861-70b83980-c764-11ea-8b34-398235f8a36e.png)
+
+Step 5: Select the subordinate CA you created earlier. The private certificate issued will be signed by the subordinate issuing CA. 
+![Screen Shot 2020-07-16 at 1 02 36 PM](https://user-images.githubusercontent.com/50940575/87628972-a65d2280-c764-11ea-8ac3-f6558af7fbf1.png)
+
+Step 6: Secure by applying the cert to the ALB DNS name that you copied in step 2. Click Next. Skip the next step, do not add any tags. 
+![Screen Shot 2020-07-16 at 1 04 42 PM](https://user-images.githubusercontent.com/50940575/87629114-f1773580-c764-11ea-81cb-a083a13606f6.png)
+
+Step 7: Verify that the domain name is accurate and click confirm and request. 
+![Screen Shot 2020-07-16 at 1 05 48 PM](https://user-images.githubusercontent.com/50940575/87629187-1cfa2000-c765-11ea-9410-240b86677b84.png)
+
+Step 8: Success!! Your certificate should be created successfully. Please note that when you issue a private certificate from the console, the validity period is set to a default of 13 months. ACM automatically manages the renewals for this certificate before it expires. If you want flexibility in setting a different validity period for the private certificates you would like to generate, you can use the issue certificate ACM Private CA API.  However these certificates will not be automatically renewed by ACM. You will have to manually renew them. For more information on the issue_certificate API Call for acmpca please see the documenation link below :
+
+https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/acm-pca.html#ACMPCA.Client.issue_certificate
+
+
+## Attaching a HTTPS listener and private certificate to the ALB 
+
+Step 1: Navigate back to EC2. Scroll down on the left hand menu until you see "Target Groups". Click on Target Groups and Create Target Group. 
+![Screen Shot 2020-07-16 at 1 09 09 PM](https://user-images.githubusercontent.com/50940575/87629402-9134c380-c765-11ea-8c8f-f787bab2e323.png)
+
+Step 2: Specify the target group details as the Lambda Function. This routes load balancer requests to this Lambda function. Click Next. 
+![Screen Shot 2020-07-16 at 1 10 32 PM](https://user-images.githubusercontent.com/50940575/87629510-c17c6200-c765-11ea-8fde-825eb357b4c3.png)
+
+Step 3: Choose the builders-lambda-origin-one function
+![Screen Shot 2020-07-16 at 1 11 34 PM](https://user-images.githubusercontent.com/50940575/87629593-e53fa800-c765-11ea-89c9-9b84f160c9e6.png)
+
+Step 4: Navigate back to the EC2 console, and scroll down to 'Load Balancers' on the left hand side menu. Navigate to "Listeners" to Add a Listener on your ALB. 
+![Screen Shot 2020-07-16 at 1 12 41 PM](https://user-images.githubusercontent.com/50940575/87629677-0e603880-c766-11ea-9899-8d9721f44498.png)
+
+Step 5: Configure your HTTPS listener with the following parameters. Click Save on the top right of the screen. 
+![Screen Shot 2020-07-16 at 1 13 30 PM](https://user-images.githubusercontent.com/50940575/87629767-32237e80-c766-11ea-8ffd-7ea808381cb0.png)
+
+Step 6: Success! You have now configured your HTTPS listener and private certificate to the ALB. 
+
+Please note - The ALB created is internet facing, however a private cert was applied to the HTTPS listener of the ALB so that the identity of the ALB can be visually validated by your browser in later steps. This was done for education purposes. Private Certificates are usually meant for applications that are accessible ONLY over a private network. If you are building a public internet facing application, you should use public ACM certificates. 
+
+## OPTIONAL - Validate the identity of the ALB with the browser that your are using. Please open link in a new browser tab
 * For firefox : https://view.highspot.com/viewer/5d5c1fe23f65f635ae005a47
 * For google chrome : https://view.highspot.com/viewer/5d5c42da66bbaa2fc928a575
 * For Microsoft Edge : https://view.highspot.com/viewer/5d5c2e5cf7794d4833e8207a

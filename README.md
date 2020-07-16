@@ -179,17 +179,49 @@ Step 14: Validate that this role cannot delete the key as the role is not a key 
 
 ## Part 2 : Create a complete CA hierarchy using ACM Private CA and deploying private certificates
 
+Key Terms and Concepts:
+* Root CA – the root CA is the highest level of the hierarchy and serves as the trust anchor. In order for an end entity certificate to be trusted, the root CA it chains up to must be embedded in the operating system, browser, device, or whatever is validating the certificate. Root CAs are heavily secured. When you create a Root CA, the Root CA private key is used to sign the root CA Certificate Signing Request (CSR). The Root CA private key for AWS Certificate Manager in a hierarchy protects the root CA private keys in FIPS 140-2 Level 3 validated Hardware. 
+
+* Subordinate CAs – these live between the root and end entity certificates and their main purpose is to define and authorize the types of certificates that can be requested from the root CA.    
+
+* End entity certificates – these are the certificates installed on servers, machines, cryptographic hardware and devices (e.g. SSL/TLS issued to servers, code signing, client certificates issued to individuals for email encryption, digital signing, authentication)
+
+## Create a Root CA 
+
 1. Assume an IAM Role called **CaAdminRole** 
-Assume the role named CaAdminRole by using switch role on the AWS console in the AWS account that you are currently logged into. The role name is case sensitive
+Assume the role named CaAdminRole by using switch role on the AWS console in the AWS account that you are currently logged into. The role name is case sensitive. This role has permissions that a Certificate Authority administrator will need for CA administration. As a CA administrator you will be responsible for creating a root and subordinate certificate authority hierarchy
 
-This role has permissions that a Certificate Authority administrator will need for CA administration. As a CA administrator you will be responsible for creating a root and subordinate certificate authority hierarchy
+Step 1: 
+Navigate to AWS Certificate Manager Service in the AWS Console. Click on "Get Started" under the Private Certificate Authority. 
+![Screen Shot 2020-07-16 at 11 50 04 AM](https://user-images.githubusercontent.com/50940575/87624496-87599300-c75a-11ea-8975-a4badb2b0daf.png)
 
-3. Create a Root CA.
-* Navigate to ACM Service in the AWS Console
-* Click Get Started under Private Certificate Authority
-* Open this link in a new browser tab for the rest of the steps : https://view.highspot.com/viewer/5d5b129b6a3b116f4230f242 
+Step 2: Configure the Root CA parameters
+![Screen Shot 2020-07-16 at 11 50 48 AM](https://user-images.githubusercontent.com/50940575/87624539-9dffea00-c75a-11ea-8a51-0632d5d492fd.png)
 
-4. Create a Subordinate Issuing CA.
+Step 3: Configure the CA Key Algorithm - expand to see the different types of algorithms you can choose from. 
+![Screen Shot 2020-07-16 at 11 51 49 AM](https://user-images.githubusercontent.com/50940575/87624607-c1c33000-c75a-11ea-957d-ec4f240b4b8c.png)
+
+Step 4: Enable the Certificate Revocation List (CRL) Distribution. A certificate revocation list (or CRL) is a list of digital certificates that have been revoked by the issuing certificate authority (CA) before their scheduled expiration date and should no longer be trusted. 
+![Screen Shot 2020-07-16 at 11 53 20 AM](https://user-images.githubusercontent.com/50940575/87624724-fafba000-c75a-11ea-869e-21c6ae322d9a.png)
+
+Step 5: Set tags - Remember this feature from last week's ABAC workshop. 
+![Screen Shot 2020-07-16 at 11 54 13 AM](https://user-images.githubusercontent.com/50940575/87624762-1797d800-c75b-11ea-895a-e7c3c5c02a4a.png)
+
+Step 6: Configure CA permissions. We do not want to issue end entity certs from the root CA. Click next and confirm and create the root CA.
+![Screen Shot 2020-07-16 at 11 57 42 AM](https://user-images.githubusercontent.com/50940575/87625179-1d41ed80-c75c-11ea-9dff-425ca28d1457.png)
+
+Step 7: Click "Get Started" to activate the CA
+![Screen Shot 2020-07-16 at 12 03 05 PM](https://user-images.githubusercontent.com/50940575/87625276-537f6d00-c75c-11ea-8131-22fc4b86399e.png)
+
+Step 8: Set the validity period and signature algorithm for the Root CA cert. Click next and confirm and install to create the root CA cert. 
+
+![image](https://user-images.githubusercontent.com/50940575/87625326-73169580-c75c-11ea-8de9-0cb9e0aa261b.png)
+
+Step 9: Success! You should see that the root CA is now active. 
+![Screen Shot 2020-07-16 at 12 05 08 PM](https://user-images.githubusercontent.com/50940575/87625422-b113b980-c75c-11ea-9507-fa1a48c11fc8.png)
+
+## Create a Subordinate Issuing CA
+
 * Navigate to ACM Service in the AWS Console
 * Under Private CA's click on the Create CA button
 * Open this link in a new browser tab for the rest of the steps : https://view.highspot.com/viewer/5d9e91c1a2e3a9148b6d7deb 

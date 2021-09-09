@@ -21,24 +21,21 @@ This step will help you copy 3 AWS CloudFormation Templates that are required fo
 * Create a local folder entitled **workshop_templates** on your laptop. You will need to save the 3 templates below into this folder for easy navigation. 
 
 **Setting up the CloudFormation template-base for the workshop**
-* Click on https://raw.githubusercontent.com/aws-samples/data-protection/master/usecase-8/cf-templates/template-base.yaml 
-* On Mac:
-* Click on File > **Save Page As** > leave the default template name > Save within the folder **workshop_templates** created in the previous step. 
-<img width="424" alt="Screen Shot 2020-07-13 at 11 48 10 AM" src="https://user-images.githubusercontent.com/50940575/87269157-ed49de80-c4fe-11ea-8afe-5b12d7da3da6.png">
-
-* On Windows: 
-* Click on https://raw.githubusercontent.com/aws-samples/data-protection/master/usecase-8/cf-templates/template-base.yaml 
-* Right Click > **Save As** > leave the default template name > Save within the folder **workshop_templates** created in the previous step. 
-<img width="711" alt="Screen Shot 2020-07-13 at 11 53 38 AM" src="https://user-images.githubusercontent.com/50940575/87269418-adcfc200-c4ff-11ea-9d1e-93265f9fc16a.png">
+* Download the template-base.yml file from the list of files above. 
+* Right click on the template-base.yml file > **Save Link As** > Save within the folder **workshop_templates** created in the previous step. 
 
 **Setting up the CloudFormation template-ca-admin for the workshop**
 * Click on https://raw.githubusercontent.com/aws-samples/data-protection/master/usecase-8/cf-templates/template-ca-admin.yaml
 * On Mac:
 * Click on Chrome > **Save Page As** > leave the default template name > Save within the folder **workshop_templates** created in the previous step.
 
+<img width="424" alt="Screen Shot 2020-07-13 at 11 48 10 AM" src="https://user-images.githubusercontent.com/50940575/87269157-ed49de80-c4fe-11ea-8afe-5b12d7da3da6.png">
+
 * On Windows: 
 * Click on https://raw.githubusercontent.com/aws-samples/data-protection/master/usecase-8/cf-templates/template-ca-admin.yaml
 * Right Click > **Save As** > leave the default template name > Save within the folder **workshop_templates** created in the previous step. 
+
+<img width="711" alt="Screen Shot 2020-07-13 at 11 53 38 AM" src="https://user-images.githubusercontent.com/50940575/87269418-adcfc200-c4ff-11ea-9d1e-93265f9fc16a.png">
 
 **Setting up the CloudFormation template-app-dev for the workshop**
 * Click on https://raw.githubusercontent.com/aws-samples/data-protection/master/usecase-8/cf-templates/template-app-dev.yaml
@@ -201,8 +198,7 @@ Step 2: Configure the Root CA parameters
 Step 3: Configure the CA Key Algorithm - expand to see the different types of algorithms you can choose from. 
 ![Screen Shot 2020-07-16 at 11 51 49 AM](https://user-images.githubusercontent.com/50940575/87624607-c1c33000-c75a-11ea-957d-ec4f240b4b8c.png)
 
-Step 4: Enable the Certificate Revocation List (CRL) Distribution. A certificate revocation list (or CRL) is a list of digital certificates that have been revoked by the issuing certificate authority (CA) before their scheduled expiration date and should no longer be trusted. 
-![Screen Shot 2020-07-16 at 11 53 20 AM](https://user-images.githubusercontent.com/50940575/87624724-fafba000-c75a-11ea-869e-21c6ae322d9a.png)
+Step 4: Do not enable the Certificate Revocation List (CRL) Distribution. A certificate revocation list (or CRL) is a list of digital certificates that have been revoked by the issuing certificate authority (CA) before their scheduled expiration date and should no longer be trusted. While it is very useful and you can enable it in your own workloads, we won't do it now. Click next. 
 
 Step 5: Set tags - Remember this feature from last week's ABAC workshop. 
 ![Screen Shot 2020-07-16 at 11 54 13 AM](https://user-images.githubusercontent.com/50940575/87624762-1797d800-c75b-11ea-895a-e7c3c5c02a4a.png)
@@ -235,8 +231,7 @@ Step 2: Configure the CA with these parameters
 Step 3: Choose the CA key Algorithm 
 ![Screen Shot 2020-07-16 at 12 45 12 PM](https://user-images.githubusercontent.com/50940575/87627829-364d9d00-c762-11ea-9d65-5c4a08ef0bd3.png)
 
-Step 4: Enable the CRL distribution
-![Screen Shot 2020-07-16 at 12 46 07 PM](https://user-images.githubusercontent.com/50940575/87627882-567d5c00-c762-11ea-9284-7557c1079a60.png)
+Step 4: Do not enable the CRL distribution. Click next. 
 
 Step 5: Add tags
 ![Screen Shot 2020-07-16 at 12 46 49 PM](https://user-images.githubusercontent.com/50940575/87627928-6c8b1c80-c762-11ea-8efa-a42378132ce1.png)
@@ -308,7 +303,7 @@ Step 6: Success! You have now configured your HTTPS listener and private certifi
 
 Please note - The ALB created is internet facing, however a private cert was applied to the HTTPS listener of the ALB so that the identity of the ALB can be visually validated by your browser in later steps. This was done for education purposes. Private Certificates are usually meant for applications that are accessible ONLY over a private network. If you are building a public internet facing application, you should use public ACM certificates. 
 
-## OPTIONAL - Validate the identity of the ALB with the browser that your are using. Please open link in a new browser tab
+## Validate the identity of the ALB with the browser that your are using. Please open link in a new browser tab
 * For firefox : https://view.highspot.com/viewer/5d5c1fe23f65f635ae005a47
 * For google chrome : https://view.highspot.com/viewer/5d5c42da66bbaa2fc928a575
 * For Microsoft Edge : https://view.highspot.com/viewer/5d5c2e5cf7794d4833e8207a
